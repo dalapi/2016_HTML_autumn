@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>OMIKUZI</title>
+	</head>
+	<style media="screen">
+		body{
+			background-color: #999999;
+			text-align: center;
+			font-style: normal 16pt;
+			color: #ffffff;
+			font-family: Verdana, sans-serif;
+			margin: 20pt;
+		}
+		#result{
+			width: 100pt;
+			height: 100pt;
+			margin: 30pt auto;
+			padding: 20pt;
+			text-align: center;
+			line-height: 100pt;
+
+			border-radius: 50%;
+			box-shadow: 1px 5px 12px gray;
+			border: 1pt;
+			background: #22ddee;
+
+			font-size: 35pt;
+
+		}
+		#btn{
+			margin: 30pt auto;
+			padding: 10pt;
+			width: 100pt;
+
+			border: 1pt;
+			border-style: dotted;
+			cursor: pointer;
+			font-style: normal 24pt;
+		}
+		#btn:hover{
+			opacity:0.8;
+			color: #333;
+			background-color: #ffffff;
+		}
+	</style>
+	<body>
+		<div id="result">?</div>
+		<div id="btn">あなたの運勢は?</div>
+
+		<script type="text/javascript">
+			//関数event定義
+			function event(){
+				document.getElementById('btn').addEventListener('click',
+				function(){
+					// ボタン上でクリックされた時の処理
+					// Math.floor()-> 小数点以下切捨て
+					// Math.random() -> 0-0.9999..
+					// Math.random() *4 -> 0-3.9999...
+					var omikuji=["王馬","小吉","小吉","小吉"];
+					// omikuji.length -> 配列omikujiの要素数を返す
+					var result=Math.floor(Math.random()* omikuji.length); //0-3 乱数生成
+					document.getElementById('result').innerHTML=omikuji[result];
+					// 配列omikujiのresult番目の要素を表示する
+				});
+			}
+			event(); //関数呼び出し
+		</script>
+	</body>
+</html>

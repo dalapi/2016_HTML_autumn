@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charset="utf-8">
+	<title>TYPING GAME</title>
+	<style>
+		body{
+			padding-top: 40px;
+			font-family: 'Courier New', sans-serif;
+			text-align: center;
+		}
+		#target {
+			font-size: 48px;
+			letter-spacing: 3px;
+		}
+		.info {
+			color: #ccc;
+		}
+	</style>
+</head>
+<body>
+	<p id="target">Word</p>
+	<p class="info">
+		Letters count: <span id="score">0</span>,
+		Miss count: <span id="miss">0</span>
+	</p>
+	<script>
+	function event(){
+		var words = [
+			"APPLE","HELLO","PEN","EMON"
+		];
+		// 表示する文字列を入れる変数
+		var currentWord = "APPLE";
+		// 今何文字目を現す
+		var currentLocation = 0;
+		var score = 0;
+		var miss = 0;
+
+		// 表示と紐付け
+		var target = document.getElementById("target");
+		var scoreLabel = document.getElementById("score");
+		var missLabel = document.getElementById("miss");
+
+		// ターゲットに変数の中身を表示
+		target.innerHTML = currentWord;
+		scoreLabel.innerHTML = score;
+		missLabel.innerHTML = miss;
+
+		//
+		function setTarget(){
+			// Math.floor 小数点以下切捨て
+			// Math.random() 0-0.999..を生成
+			// Math.random() * 2 -> 0-1.999...
+			currentWord = words[Math.floor(Math.random()*words.length)];
+			target.innerHTML = currentWord;
+			currentLocation = 0;
+		}
+
+		//
+		window.addEventListener('keyup',function(e){
+			console.log(String.fromCharCode(e.keyCode));
+		if(String.fromCharCode(e.keyCode)
+		==currentWord[currentLocation]){
+			console.log("OK"); //console
+			currentLocation++;
+			var placeHolder = ""; //途中経過用
+			// 正解分＿を用意
+			for(var i = 0; i < currentLocation; i++){
+				placeHolder += "_";
+			}
+			// substring(n) n番目以以下の文字をコピー
+			target.innerHTML =
+			placeHolder + currentWord.substring(currentLocation);
+			score++;
+			scoreLabel.innerHTML = score; //user visable
+			// when picking final word
+			if(currentLocation == currentWord.length){
+				setTarget();
+			}
+		}else{
+			console.log("NG");
+			miss++;
+			missLabel.innerHTML = miss;
+		}
+		});
+
+	}
+	event();
+	</script>
+</body>
+</html>

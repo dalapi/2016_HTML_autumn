@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+	<meta charaset="utf-8">
+	<title>CHEN PEICHUN</title>
+</head>
+<body>
+	<canvas id='kadai' width='640' height='480'>
+		Canvas未対応
+	</canvas>
+	<script>
+		function event(){
+			'use strict';
+
+			var canvas;
+			var ctx;
+			var Ball;
+
+			canvas = document.getElementById('kadai');
+			if(!canvas || !canvas.getContext) return false;
+			ctx = canvas.getContext('2d');
+
+			function rand(min, max){
+				return min + Math.floor(Math.random() * (max - min + 1));
+			}
+
+			canvas.addEventListener('click', function(){
+				var x, y, r;
+				x = 320;
+				y = 240;
+
+			});
+
+			Ball = function(x, y, r){
+				this.x = x;
+				this.y = y;
+				this.r = r;
+				this.vx = rand(-10, 10);
+				this.vy = rand(-10, 10);
+				this.color = 'hsla(' + rand(330, 345) + ', '
+				+ rand(70, 90) + '%, ' + rand(40, 55) + '%, ' + Math.random() + ')';
+				//'hsla(0, 90%, 52%, 0.78)';
+				this.draw = function(){
+					ctx.beginPath();
+					ctx.arc(this.x, this.y, this.r, 0, Math.PI*2);
+					ctx.fillStyle = this.color;
+					ctx.closePath();
+					ctx.fill();
+				}
+				this.move = function() {
+					if(this.x + this.r > canvas.width || this.x - this.r <0){
+						this.vx *=-1;
+					}
+					if(this.y + this.r > canvas.height || this.y - this.r <0){
+						this.vy *=-1;}
+					this.x += (this.vx*3);
+					this.y += (this.vy*1.5);
+				}
+			};
+			//ボールサイズを100固定,なので r を50に設定する
+			var ball = new Ball(320,240,50);
+			var ball2 = new Ball(320,240,50);
+			var ball3 = new Ball(320,240,50);
+			ball.draw();
+			ball2.draw();
+
+			function update(){
+				ctx.fillStyle = '#ecf0f1';
+				ctx.fillRect(0, 0, canvas.width, canvas.height);
+				ball.draw();
+				ball.move();
+				ball2.draw();
+				ball2.move();
+				ball3.draw();
+				ball3.move();
+				setTimeout(function(){
+					update();
+				}, 30);
+			}
+			update();
+		}
+		event();
+	</script>
+</body>
+</html>
